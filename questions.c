@@ -13,12 +13,33 @@
 // Initializes the array of questions for the game
 void initialize_game(void)
 {
+    FILE *file = fopen("questions.txt", "r");
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    for (int i = 0; i < NUM_QUESTIONS; i++){
+        strncpy(questions[i].category, categories[i%3], sizeof(questions[i].category));
+        questions[i].answered = false;
+        questions[i].value = i%3 * 100 + 100;
+        read = getline(&line, &len, file);
+        strncpy(questions[i].question, line, sizeof(questions[i].question));
+        read = getline(&line, &len, file);
+        strncpy(questions[i].answer, line, sizeof(questions[i].answer));
+    }
     // initialize each question struct and assign it to the questions array
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
 void display_categories(void)
 {
+    for(int i = 0; i < NUM_CATEGORIES; i++){
+        printf("%s", categories[i]);
+        if (i != NUM_CATEGORIES){
+            printf(" | ");
+        }
+    }
+    printf("\n");
     // print categories and dollar values for each unanswered question in questions array
 }
 
