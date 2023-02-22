@@ -14,7 +14,7 @@
 // Initializes the array of questions for the game
 void initialize_game(void)
 {
-    FILE *file = fopen("questions.txt", "r");
+    FILE *file = fopen("question_list.txt", "r");
     char *line = NULL;
     size_t len = 0;
     ssize_t read;
@@ -32,12 +32,14 @@ void initialize_game(void)
 }
 
 // Displays each of the remaining categories and question dollar values that have not been answered
-void display_categories(void)
+void display_choices(void)
 {
     for(int i = 0; i < NUM_CATEGORIES; i++){
         printf("%s", categories[i]);
-        if (i != NUM_CATEGORIES){
-            printf(" | ");
+        for (int i = 0; i < NUM_QUESTIONS; i++){
+            if (!questions[i].answered && strcmp(questions[i].category, categories[i])){
+                printf("%d\n", questions[i].value);
+            }
         }
     }
     printf("\n");
@@ -45,13 +47,16 @@ void display_categories(void)
 }
 
 // Displays the question for the category and dollar value
-void display_question(char *category, int value)
+int display_question(char *category, int value)
 {
+    int num = 0;
     for (int i = 0; i < NUM_QUESTIONS; i++){
         if (strcmp(category, questions[i].category) && (value == questions[i].value)){
-            printf(questions[i].question);
+            printf("%s", questions[i].question);
+            num = i;
         }
     }
+    return num;
 }
 
 // Returns true if the answer is correct for the question for that category and dollar value
@@ -76,4 +81,13 @@ bool already_answered(char *category, int value)
     }
     // lookup the question and see if it's already been marked as answered
     return false;
+}
+
+bool all_answered(){
+    for (int i = 0; i < NUM_QUESTIONS; i++){
+        if (!questions[i].answered){
+            return false;
+        }
+    }
+    return true;
 }

@@ -40,10 +40,10 @@ question questions[NUM_QUESTIONS];
 extern void initialize_game(void);
 
 // Displays each of the remaining categories and question dollar values that have not been answered
-extern void display_categories(void);
+extern void display_choices(void);
 
 // Displays the question for the category and dollar value
-extern void display_question(char *category, int value);
+extern int display_question(char *category, int value);
 
 // Returns true if the answer is correct for the question for that category and dollar value
 extern bool valid_answer(char *category, int value, char *answer);
@@ -51,4 +51,6 @@ extern bool valid_answer(char *category, int value, char *answer);
 // Returns true if the question has already been answered
 extern bool already_answered(char *category, int value);
 
+// Returns if all questions are answered
+extern bool all_answered();
 #endif /* QUESTIONS_H_ */
