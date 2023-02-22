@@ -12,6 +12,9 @@
 #include <sys/types.h>
 
 // Initializes the array of questions for the game
+
+question questions[NUM_QUESTIONS];
+
 void initialize_game(void)
 {
     FILE *file = fopen("question_list.txt", "r");
