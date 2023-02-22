@@ -18,7 +18,7 @@
 #define NUM_PLAYERS 4
 
 // Put global environment variables here
-
+extern question questions[NUM_QUESTIONS];
 // Processes the answer from the user containing what is or who is and tokenizes it to retrieve the answer.
 char* tokenize(char *input);
 
